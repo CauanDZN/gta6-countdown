@@ -1,0 +1,144 @@
+@font-face {
+  font-family: 'Outfit';
+  src: url('fonts/outfit.ttf') format('truetype');
+  font-weight: 100 900;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+  font-family: 'Outfit', sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* top/right/bottom/left instead of `inset: 0` — this TV's browser (webOS 4, Chromium 53) doesn't
+   support the inset shorthand (needs Chrome 87+). Same fix as in the launcher's style.css. */
+#glow {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background: radial-gradient(ellipse at 50% 35%, rgba(255, 63, 164, 0.16), transparent 62%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Slideshow de fundo: as fotos trocam por cross-fade (duas camadas de opacidade, nunca animação
+   de layout) — leve pro Chromium 53 dessa TV e sem nenhum flash de branco entre uma foto e outra. */
+#slides {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  z-index: 0;
+}
+
+.slide {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.6s ease-in-out;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+/* Escurece as fotos pra manter o contador legível por cima — mesma ideia do #glow, só que opaco. */
+#scrim {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+main {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: #fff;
+}
+
+h1 {
+  font-size: 88px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  background: linear-gradient(90deg, #ff3fa4, #3fd4ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+#subtitle {
+  margin-top: 8px;
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+#clock {
+  margin-top: 56px;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 18px;
+}
+
+.unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 120px;
+}
+
+.unit span {
+  font-size: 96px;
+  font-weight: 300;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.unit label {
+  margin-top: 10px;
+  font-size: 16px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.sep {
+  font-size: 72px;
+  font-weight: 200;
+  opacity: 0.3;
+  align-self: flex-start;
+  margin-top: 6px;
+}
+
+#done {
+  margin-top: 40px;
+  font-size: 28px;
+  opacity: 0.85;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+#credit {
+  position: absolute;
+  left: 0; right: 0; bottom: 28px;
+  z-index: 3;
+  text-align: center;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  opacity: 0.55;
+}
